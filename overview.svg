@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 340" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <style>
+      .card { fill: #f5f5fb; stroke: #d9d9f2; stroke-width: 1.5; }
+      .cardMain { fill: #1e21c8; }
+      .title { fill: #0f1014; font-size: 16px; font-weight: 700; }
+      .titleLight { fill: #ffffff; font-size: 16px; font-weight: 700; }
+      .desc { fill: #4a4a55; font-size: 12px; }
+      .descLight { fill: #d9d9f2; font-size: 12px; }
+      .label { fill: #1e21c8; font-size: 11.5px; font-weight: 700; letter-spacing: 0.5px; }
+      .arrow { fill: none; stroke: #1e21c8; stroke-width: 2.5; }
+      .arrowHead { fill: #1e21c8; }
+    </style>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" class="arrowHead"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1180" height="340" rx="16" fill="#ffffff"/>
+
+  <!-- Source systems -->
+  <text x="145" y="66" text-anchor="middle" class="label">YOUR SYSTEMS</text>
+  <g>
+    <rect x="40" y="80" width="210" height="180" rx="12" class="card"/>
+    <text x="145" y="130" text-anchor="middle" class="title">CRM · POS · Server</text>
+    <text x="145" y="160" text-anchor="middle" class="desc">Online &amp; offline</text>
+    <text x="145" y="178" text-anchor="middle" class="desc">conversion events</text>
+    <text x="145" y="210" text-anchor="middle" class="desc">Measurement Protocol</text>
+    <text x="145" y="228" text-anchor="middle" class="desc">(GA4) format</text>
+  </g>
+
+  <line x1="250" y1="170" x2="352" y2="170" class="arrow" marker-end="url(#ah)"/>
+  <text x="301" y="156" text-anchor="middle" class="desc">HTTP POST</text>
+
+  <!-- GTM Server + tag -->
+  <text x="510" y="66" text-anchor="middle" class="label">GTM SERVER</text>
+  <g>
+    <rect x="362" y="80" width="296" height="180" rx="12" class="card"/>
+    <rect x="386" y="106" width="248" height="70" rx="10" class="cardMain"/>
+    <text x="510" y="136" text-anchor="middle" class="titleLight">Data Manager API</text>
+    <text x="510" y="158" text-anchor="middle" class="titleLight">Conversions tag</text>
+    <text x="510" y="204" text-anchor="middle" class="desc">SHA-256 hashing · consent</text>
+    <text x="510" y="222" text-anchor="middle" class="desc">normalization · field mapping</text>
+    <text x="510" y="240" text-anchor="middle" class="desc">deduplication via transaction_id</text>
+  </g>
+
+  <path d="M 658 140 C 740 140, 760 96, 838 96" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 658 200 C 740 200, 760 244, 838 244" class="arrow" marker-end="url(#ah)"/>
+  <text x="748" y="176" text-anchor="middle" class="desc">1 API call</text>
+
+  <!-- Destinations -->
+  <text x="995" y="66" text-anchor="middle" class="label">DESTINATIONS</text>
+  <g>
+    <rect x="850" y="72" width="290" height="88" rx="12" class="card"/>
+    <text x="995" y="108" text-anchor="middle" class="title">Google Ads</text>
+    <text x="995" y="134" text-anchor="middle" class="desc">Conversion action</text>
+  </g>
+  <g>
+    <rect x="850" y="180" width="290" height="88" rx="12" class="card"/>
+    <text x="995" y="216" text-anchor="middle" class="title">Google Analytics 4</text>
+    <text x="995" y="242" text-anchor="middle" class="desc">GA4 property</text>
+  </g>
+</svg>

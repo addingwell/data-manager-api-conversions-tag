@@ -1,0 +1,54 @@
+# Data Manager API Conversions by Addingwell
+
+A Google Tag Manager **Server-Side** tag template to send your conversion events (online and offline) to **Google Ads** and **Google Analytics 4** through Google's [Data Manager API](https://developers.google.com/data-manager/api) — the successor of the Google Ads Offline API and the GA4 Measurement Protocol API.
+
+![Overview: conversion events sent from your systems to GTM Server, then forwarded by the tag to Google Ads and GA4 in a single API call](./overview.svg)
+
+## Features
+
+- **Server-to-server tracking**: bypass ad blockers, cookie restrictions, and Safari ITP.
+- **Offline conversion import** from your CRM, POS, or CDP.
+- **Multiple destinations in one request**: Google Ads conversion actions and GA4 properties.
+- **Automatic SHA-256 hashing** of user data (already-hashed values are passed through).
+- **Consent Mode support**: consent read from the incoming event and normalized (`granted`/`denied`/`true`/`false` → `CONSENT_GRANTED`/`CONSENT_DENIED`).
+- **Test mode** (`Validate Only`): validate requests without recording conversions.
+
+## Quick start
+
+1. Authorize your service account on the destination: **Standard** role in Google Ads and/or **Editor** role in GA4.
+2. Download [`template.tpl`](https://github.com/addingwell/data-manager-api-conversions-tag/blob/master/template.tpl) and import it in your GTM Server container (**Templates → Tag templates → New → ⋮ → Import**).
+3. Create a tag from the template, fill in your destinations (Google Ads Customer/Conversion ID, GA4 Property/Measurement ID), and trigger it on your conversion event.
+4. Send your events to the GTM Server endpoint in Measurement Protocol (GA4) format:
+
+```json
+{
+    "events": [{
+        "name": "purchase",
+        "params": {
+            "gclid": "123",
+            "transaction_id": "12345",
+            "value": "30",
+            "currency": "EUR",
+            "consent": { "ad_user_data": "CONSENT_GRANTED", "ad_personalization": "CONSENT_GRANTED" },
+            "user_data": { "email_address": "john.doe@acme.com", "phone_number": "+33627362122" }
+        }
+    }]
+}
+```
+
+5. Test with `Validate Only` set to `true`, then switch it to `false` in production.
+
+## Documentation
+
+Full step-by-step guides (authentication, Measurement Protocol client, field mapping, testing with Postman):
+
+- 🇬🇧 [Offline Google Ads & GA4 conversions with Data Manager API](https://docs.addingwell.com/en/data-manager-api/conversions)
+- 🇫🇷 [Conversions offline Google Ads & GA4 avec Data Manager API](https://docs.addingwell.com/fr/data-manager-api/conversions)
+
+## Support
+
+Open an [issue](../../issues) or contact [support@addingwell.com](mailto:support@addingwell.com).
+
+---
+
+Maintained by [Addingwell](https://www.addingwell.com).
