@@ -1,13 +1,5 @@
 homepage: "https://addingwell.com"
 documentation: "https://docs.addingwell.com/en/data-manager-api/conversions"
 versions:
-  - sha: 10ea15da4566e9e9c2fbfa8705e2b30f68392c6b
-    changeNotes: Add field help texts, event-data consent mode, new ad identifiers and cart data overrides
-  - sha: 5b2503491f8418a90df0f5fa762b33022b9e5e34
-    changeNotes: Add appInstanceId + userId + validateOnly fix
-  - sha: b45fd81924402e8f611b8806ee54e42d8b6382f6
-    changeNotes: add logo + tests + payload update
-  - sha: ced59caca2241134b97127f881657b2f2b23d266
-    changeNotes: Update tag template.
-  - sha: 23301d7227c2ff828077f55b5d895a1547ea3e41
-    changeNotes: Initial release.
+  - sha: 7d24749c790d3059b1482ed5ae0b8101c9c32335
+    changeNotes: first commit
