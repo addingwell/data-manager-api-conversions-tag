@@ -299,7 +299,7 @@ ___TEMPLATE_PARAMETERS___
         "type": "SIMPLE_TABLE",
         "name": "adIdentifiersList",
         "displayName": "Ad Identifiers",
-        "help": "\u003cb\u003eGCLID\u003c/b\u003e: The Google click ID (gclid) associated with this event. (default: \u003ci\u003eeventData.gclid\u003c/i\u003e)\u003cbr\u003e\n\u003cb\u003eGBRAID\u003c/b\u003e: The click identifier for clicks associated with app events and originating from iOS devices starting with iOS14. (default: \u003ci\u003eeventData.gbraid\u003c/i\u003e)\u003cbr\u003e\n\u003cb\u003eWBRAID\u003c/b\u003e: The click identifier for clicks associated with web events and originating from iOS devices starting with iOS14. (default: \u003ci\u003eeventData.wbraid\u003c/i\u003e)\u003cbr\u003e\n\u003cb\u003eDCLID\u003c/b\u003e: The display click ID associated with this event. (default: \u003ci\u003eeventData.dclid\u003c/i\u003e)\u003cbr\u003e\n\u003cb\u003eMobile Device ID\u003c/b\u003e: The mobile identifier for advertisers. This would be IDFA on iOS, AdID on Android, or other platforms\u0027 identifiers for advertisers. (default: \u003ci\u003eeventData.mobile_device_id\u003c/i\u003e)\u003cbr\u003e\n\u003cb\u003eImpression ID\u003c/b\u003e: The impression ID associated with this event. (default: \u003ci\u003eeventData.impression_id\u003c/i\u003e)\u003cbr\u003e\n\u003cb\u003eMatch ID\u003c/b\u003e: The match ID field used to join this event with a previous event. (default: \u003ci\u003eeventData.match_id\u003c/i\u003e)\u003cbr\u003e\n\u003cb\u003eSession Attributes (base64)\u003c/b\u003e: Session attributes for event attribution and modeling. (default: \u003ci\u003eNo default value\u003c/i\u003e) \u003ca href\u003d\"https://support.google.com/google-ads/answer/16194756\" target\u003d\"_blank\"\u003eLearn more\u003c/a\u003e\u003cbr\u003e\n\u003cb\u003eLanding Page Device Info\u003c/b\u003e: Information gathered about the device being used (if any) at the time of landing onto the advertiser\u0027s site after interacting with the ad. (default: \u003ci\u003eNo default value\u003c/i\u003e)\u003cbr\u003e",
+        "help": "\u003cb\u003eGCLID\u003c/b\u003e: The Google click ID (gclid) associated with this event. (default: \u003ci\u003eeventData.gclid\u003c/i\u003e)\u003cbr\u003e\n\u003cb\u003eGBRAID\u003c/b\u003e: The click identifier for clicks associated with app events and originating from iOS devices starting with iOS14. (default: \u003ci\u003eeventData.gbraid\u003c/i\u003e)\u003cbr\u003e\n\u003cb\u003eWBRAID\u003c/b\u003e: The click identifier for clicks associated with web events and originating from iOS devices starting with iOS14. (default: \u003ci\u003eeventData.wbraid\u003c/i\u003e)\u003cbr\u003e\n\u003cb\u003eDCLID\u003c/b\u003e: The display click ID associated with this event. (default: \u003ci\u003eeventData.dclid\u003c/i\u003e)\u003cbr\u003e\n\u003cb\u003eMobile Device ID\u003c/b\u003e: The mobile identifier for advertisers. This would be IDFA on iOS, AdID on Android, or other platforms\u0027 identifiers for advertisers. (default: \u003ci\u003eeventData.mobile_device_id\u003c/i\u003e)\u003cbr\u003e\n\u003cb\u003eImpression ID\u003c/b\u003e: The impression ID associated with this event. (default: \u003ci\u003eeventData.impression_id\u003c/i\u003e)\u003cbr\u003e\n\u003cb\u003eMatch ID\u003c/b\u003e: The match ID field used to join this event with a previous event. (default: \u003ci\u003eeventData.match_id\u003c/i\u003e)\u003cbr\u003e\n\u003cb\u003eSession Attributes (base64)\u003c/b\u003e: Session attributes for event attribution and modeling. (default: \u003ci\u003eNo default value\u003c/i\u003e) \u003ca href\u003d\"https://support.google.com/google-ads/answer/16194756\" target\u003d\"_blank\"\u003eLearn more\u003c/a\u003e\u003cbr\u003e\n\u003cb\u003eLanding Page Device Info\u003c/b\u003e: Information gathered about the device being used (if any) at the time of landing onto the advertiser\u0027s site after interacting with the ad. (default: userAgent from \u003ci\u003esession_attributes.landing_page_user_agent\u003c/i\u003e or \u003ci\u003eaw_visitor_context.ad_click.google_ads.landing_device.user_agent\u003c/i\u003e, ipAddress from \u003ci\u003eaw_visitor_context.ad_click.google_ads.landing_device.ip_address\u003c/i\u003e)\u003cbr\u003e",
         "simpleTableColumns": [
           {
             "defaultValue": "gclid",
@@ -517,7 +517,7 @@ ___TEMPLATE_PARAMETERS___
         "displayName": "User ID",
         "simpleValueType": true,
         "valueHint": "123456789",
-        "help": "A unique identifier for a user, as defined by the advertiser. (default: \u003ci\u003eeventData.user_id\u003c/i\u003e or \u003ci\u003eeventData.user_data.user_id\u003c/i\u003e)"
+        "help": "A unique identifier for a user, as defined by the advertiser. (default: \u003ci\u003eeventData.user_id\u003c/i\u003e, then \u003ci\u003eeventData.user_data.user_id\u003c/i\u003e, then \u003ci\u003eeventData.aw_visitor_context.identity.user_id\u003c/i\u003e)"
       },
       {
         "type": "TEXT",
@@ -820,22 +820,6 @@ ___TEMPLATE_PARAMETERS___
         ]
       }
     ]
-  },
-  {
-    "type": "GROUP",
-    "name": "firestoreGroup",
-    "displayName": "Firestore Variable",
-    "groupStyle": "ZIPPY_CLOSED",
-    "subParams": [
-      {
-        "type": "TEXT",
-        "name": "firestoreDocument",
-        "displayName": "Firestore Reader by Addingwell",
-        "help": "The Firestore Reader by Addingwell variable used to enrich the event with landing page and campaign data (GCLID, UTM parameters, device info, etc.).",
-        "simpleValueType": true,
-        "valueHint": "{{Firestore Reader by Addingwell}}"
-      }
-    ]
   }
 ]
 
@@ -856,27 +840,51 @@ const getTimestampMillis = require('getTimestampMillis');
 const Math = require('Math');
 const createRegex = require('createRegex');
 const Object = require('Object');
+const getType = require('getType');
+const toBase64 = require('toBase64');
 /* ============================================================
    Campaign Data
 ============================================================ */
 
-const firestoreDocument = data.firestoreDocument || {};
-const gclid = firestoreDocument.gclid || eventData.gclid;
-const campaign_id = firestoreDocument.campaign_id || eventData.campaign_id;
-const utm_campaign = firestoreDocument.utm_campaign || eventData.utm_campaign;
-const utm_medium = firestoreDocument.utm_medium || eventData.utm_medium;
-const utm_source = firestoreDocument.utm_source || eventData.utm_source;
+// Visitor context (eventData.aw_visitor_context): lowest-priority fallback.
+// Only used when neither the tag fields nor the top-level event data
+// provide a value.
+const visitorContext = asObject(eventData.aw_visitor_context);
+const vcGoogleAds = asObject(asObject(visitorContext.ad_click).google_ads);
+const vcSessionAttributes = asObject(vcGoogleAds.session_attributes);
+const vcIdentity = asObject(visitorContext.identity);
+const vcUserData = asObject(vcIdentity.user_data);
+const vcLanding = asObject(visitorContext.landing);
+const vcLandingDevice = asObject(vcGoogleAds.landing_device);
+const vcUtm = asObject(visitorContext.utm);
 
-const gad_campaignid = firestoreDocument.gad_campaignid || eventData.gad_campaignid;
-const gad_source = firestoreDocument.gad_source || eventData.gad_source;
+const gclid = eventData.gclid || vcGoogleAds.gclid;
+const campaign_id = eventData.campaign_id || vcUtm.campaign_id || vcUtm.utm_id || vcUtm.id;
+const utm_campaign = eventData.utm_campaign || vcUtm.utm_campaign || vcUtm.campaign;
+const utm_medium = eventData.utm_medium || vcUtm.utm_medium || vcUtm.medium;
+const utm_source = eventData.utm_source || vcUtm.utm_source || vcUtm.source;
 
-const gbraid = firestoreDocument.gbraid || eventData.gbraid;
-const wbraid = firestoreDocument.wbraid || eventData.wbraid;
-const dclid = firestoreDocument.dclid || eventData.dclid;
+// Session attributes can arrive as the base64 encoded string (sent as-is in
+// adIdentifiers.sessionAttributes) or as a decoded object. A decoded object is
+// expanded into experimentalFields + landingPageDeviceInfo (userAgent, ipAddress), as the
+// Data Manager API documents for "Add session attributes".
+const eventSessionAttributes = asObject(eventData.session_attributes);
+const getSessionAttribute = (key) => eventSessionAttributes[key] || vcSessionAttributes[key];
+
+const gad_campaignid = eventData.gad_campaignid || getSessionAttribute('gad_campaignid');
+const gad_source = eventData.gad_source || getSessionAttribute('gad_source');
+const session_start_time_usec = eventData.session_start_time_usec || getSessionAttribute('session_start_time_usec');
+
+const gbraid = eventData.gbraid || vcGoogleAds.gbraid;
+const wbraid = eventData.wbraid || vcGoogleAds.wbraid;
+const dclid = eventData.dclid || vcGoogleAds.dclid;
 const mobile_device_id = eventData['x-ga-resettable_device_id'];
-const impression_id = firestoreDocument.impression_id || eventData.impression_id;
+const impression_id = eventData.impression_id;
 const match_id = eventData.match_id;
-const session_attributes = firestoreDocument.session_attributes || eventData.session_attributes;
+// adIdentifiers.sessionAttributes only accepts a base64 encoded string: a
+// decoded object (e.g. from aw_visitor_context) is JSON-serialized and encoded.
+const session_attributes = encodeSessionAttributes(eventData.session_attributes) ||
+  encodeSessionAttributes(vcGoogleAds.session_attributes);
 
 /* ============================================================
    Destination References
@@ -948,7 +956,7 @@ const normalizeConsent = (value) => {
   return result;
 };
 
-const consent = firestoreDocument.consent || eventData.consent || {};
+const consent = eventData.consent || visitorContext.consent || {};
 
 requestParams.consent = {
   adUserData: normalizeConsent(
@@ -970,9 +978,10 @@ event.eventTimestamp = eventData.timestamp_micros || formatTimestampToISO(getTim
 event.eventSource = data.eventSource;
 event.eventName = eventData.event_name;
 
-event.fpid = firestoreDocument.fpid;
-event.clientId = firestoreDocument.client_id || eventData.client_id;
-event.userId = data.userId || eventData.user_id || (eventData.user_data ? eventData.user_data.user_id : undefined);
+event.clientId = eventData.client_id ||
+  (getType(vcIdentity.client_ids) === 'array' ? vcIdentity.client_ids[0] : undefined);
+event.userId = data.userId || eventData.user_id || (eventData.user_data ? eventData.user_data.user_id : undefined) ||
+  vcIdentity.user_id;
 event.appInstanceId = eventData.app_instance_id;
 
 /* ============================================================
@@ -980,17 +989,11 @@ event.appInstanceId = eventData.app_instance_id;
 ============================================================ */
 
 event.adIdentifiers = {};
-const landingPageUserAgent = firestoreDocument.user_agent;
-const landingPageIpAddress = firestoreDocument.ip_address;
-const landingPageLanguageCode = firestoreDocument.language_code;
-const landingPageScreenHeight = firestoreDocument.screen_height;
-const landingPageScreenWidth = firestoreDocument.screen_width;
-const landingPageOperatingSystem = firestoreDocument.operating_system;
-const landingPageOperatingSystemVersion = firestoreDocument.operating_system_version;
-const landingPageModel = firestoreDocument.model;
-const landingPageBrand = firestoreDocument.brand;
-const landingPageBrowser = firestoreDocument.browser;
-const landingPageBrowserVersion = firestoreDocument.browser_version;
+// Landing page device: no eventData.user_agent / ip_override fallback, they
+// describe the conversion request, not the landing page visit.
+const landingPageUserAgent =
+  getSessionAttribute('landing_page_user_agent') || vcLandingDevice.user_agent;
+const landingPageIpAddress = vcLandingDevice.ip_address;
 
 if (gclid || gbraid || wbraid || dclid || mobile_device_id || impression_id || match_id || session_attributes) {
 
@@ -1005,21 +1008,10 @@ if (gclid || gbraid || wbraid || dclid || mobile_device_id || impression_id || m
   
 }
 
-if(landingPageUserAgent || landingPageIpAddress || landingPageLanguageCode || landingPageScreenHeight || landingPageScreenWidth || landingPageOperatingSystem || landingPageOperatingSystemVersion || landingPageModel || landingPageBrand || landingPageBrowser || landingPageBrowserVersion) {
+if (landingPageUserAgent || landingPageIpAddress) {
   event.adIdentifiers.landingPageDeviceInfo = {};
-  
-  if(landingPageUserAgent) event.adIdentifiers.landingPageDeviceInfo.userAgent = landingPageUserAgent;
-  if(landingPageIpAddress) event.adIdentifiers.landingPageDeviceInfo.ipAddress = landingPageIpAddress;
-  if(landingPageScreenHeight) event.adIdentifiers.landingPageDeviceInfo.screenHeight = landingPageScreenHeight;
-  if(landingPageScreenWidth) event.adIdentifiers.landingPageDeviceInfo.screenWidth = landingPageScreenWidth;
-  if(landingPageLanguageCode) event.adIdentifiers.landingPageDeviceInfo.languageCode = landingPageLanguageCode;
-  if(landingPageOperatingSystem) event.adIdentifiers.landingPageDeviceInfo.operatingSystem = landingPageOperatingSystem;
-  if(landingPageOperatingSystemVersion) event.adIdentifiers.landingPageDeviceInfo.operatingSystemVersion = landingPageOperatingSystemVersion;
-  if(landingPageModel) event.adIdentifiers.landingPageDeviceInfo.model = landingPageModel;
-  if(landingPageBrand) event.adIdentifiers.landingPageDeviceInfo.brand = landingPageBrand;
-  if(landingPageBrowser) event.adIdentifiers.landingPageDeviceInfo.browser = landingPageBrowser;
-  if(landingPageBrowserVersion) event.adIdentifiers.landingPageDeviceInfo.browserVersion = landingPageBrowserVersion;
-  
+  if (landingPageUserAgent) event.adIdentifiers.landingPageDeviceInfo.userAgent = landingPageUserAgent;
+  if (landingPageIpAddress) event.adIdentifiers.landingPageDeviceInfo.ipAddress = landingPageIpAddress;
 }
 
 if(data.adIdentifiersList) {
@@ -1066,8 +1058,13 @@ if(JSON.stringify(event.eventDeviceInfo) == '{}') {
 
 event.experimentalFields = [];
 
-const landing_page_url = firestoreDocument.landing_page_url || eventData.page_location;
-const landing_page_referrer = firestoreDocument.landing_page_referrer || eventData.page_referrer;
+// No page_location / page_referrer fallback: they describe the current page,
+// not the landing page, and Google asks to omit landing_page_url rather than
+// send an inaccurate one.
+const landing_page_url =
+  getSessionAttribute('landing_page_url') || vcGoogleAds.landing_url || vcLanding.url;
+const landing_page_referrer =
+  getSessionAttribute('landing_page_referrer') || vcLanding.referrer;
 
 const experimentalMappings = [
   // Define a mapping of fields that can be overwritten 
@@ -1077,6 +1074,7 @@ const experimentalMappings = [
   { name: 'campaign_id', value: data.campaign_id || campaign_id },
   { name: 'gad_source', value: gad_source },
   { name: 'gad_campaignid', value: gad_campaignid },
+  { name: 'session_start_time_usec', value: session_start_time_usec },
   { name: 'landing_page_url', value: landing_page_url },
   { name: 'landing_page_referrer', value: landing_page_referrer }
 ];
@@ -1118,6 +1116,9 @@ if (data.email) {
 } else if (eventData.user_data != null) {
   emailMapped = eventData.user_data.sha256_email_address || eventData.user_data.email_address || eventData.user_data.email;
 }
+if (!emailMapped) {
+  emailMapped = vcUserData.sha256_email_address || vcUserData.email_address || vcUserData.email || vcIdentity.email_sha256;
+}
 
 if (emailMapped) {
   event.userData.userIdentifiers.push({emailAddress: hashData(emailMapped)});
@@ -1129,6 +1130,9 @@ if (data.phone) {
   phoneMapped = data.phone;
 } else if (eventData.user_data != null) {
   phoneMapped = eventData.user_data.sha256_phone_number || eventData.user_data.phone_number || eventData.user_data.phone;
+}
+if (!phoneMapped) {
+  phoneMapped = vcUserData.sha256_phone_number || vcUserData.phone_number || vcUserData.phone;
 }
 
 if (phoneMapped) {
@@ -1142,31 +1146,32 @@ if (phoneMapped) {
 
 const addressMapped = {};
 const addressData = (eventData.user_data != null && eventData.user_data.address != null) ? (eventData.user_data.address[0] != null ? eventData.user_data.address[0] : eventData.user_data.address) : {};
+const vcAddressData = vcUserData.address != null ? asObject(vcUserData.address[0] != null ? vcUserData.address[0] : vcUserData.address) : {};
 
 if (data.givenName) {
   addressMapped.givenName = data.givenName;
 } else {
-  addressMapped.givenName = addressData.sha256_first_name || addressData.first_name;
+  addressMapped.givenName = addressData.sha256_first_name || addressData.first_name || vcAddressData.sha256_first_name || vcAddressData.first_name;
 }
 if (addressMapped.givenName) addressMapped.givenName = hashData(addressMapped.givenName);
 
 if (data.familyName) {
   addressMapped.familyName = data.familyName;
 } else {
-  addressMapped.familyName = addressData.sha256_last_name || addressData.last_name;
+  addressMapped.familyName = addressData.sha256_last_name || addressData.last_name || vcAddressData.sha256_last_name || vcAddressData.last_name;
 }
 if (addressMapped.familyName) addressMapped.familyName = hashData(addressMapped.familyName);
 
 if (data.regionCode) {
   addressMapped.regionCode = data.regionCode;
 } else {
-  addressMapped.regionCode = addressData.country;
+  addressMapped.regionCode = addressData.country || vcAddressData.country;
 }
 
 if (data.postalCode) {
   addressMapped.postalCode = data.postalCode;
 } else {
-  addressMapped.postalCode = addressData.postal_code;
+  addressMapped.postalCode = addressData.postal_code || vcAddressData.postal_code;
 }
 
 if (addressMapped.givenName && addressMapped.familyName && addressMapped.regionCode && addressMapped.postalCode) {
@@ -1431,6 +1436,45 @@ function getItemField(defaultField) {
   }
 
   return result;
+}
+
+function asObject(value) {
+  return getType(value) === 'object' ? value : {};
+}
+
+// Mirrors Google's front-end helper script: JSON object with string values,
+// base64 encoded, made URL-safe (+ -> -, / -> _, no trailing = padding).
+function encodeSessionAttributes(value) {
+  if (typeof value === 'string') return value || undefined;
+  if (getType(value) !== 'object') return undefined;
+
+  // Drop empty values; stringify the rest (session_start_time_usec included).
+  const cleaned = {};
+  Object.keys(value).forEach((key) => {
+    const v = value[key];
+    if (v !== null && v !== undefined && v !== '') cleaned[key] = makeString(v);
+  });
+
+  if (Object.keys(cleaned).length === 0) return undefined;
+
+  let encoded = toUrlSafeBase64(JSON.stringify(cleaned));
+
+  // Google recommends staying under 5 KB; if exceeded, drop the landing page
+  // URL and referrer as its documentation suggests.
+  if (encoded.length > 5120 && (cleaned.landing_page_url || cleaned.landing_page_referrer)) {
+    cleaned.landing_page_url = undefined;
+    cleaned.landing_page_referrer = undefined;
+    encoded = toUrlSafeBase64(JSON.stringify(cleaned));
+  }
+
+  return encoded;
+}
+
+function toUrlSafeBase64(input) {
+  return toBase64(input)
+    .replace(createRegex('\\+', 'g'), '-')
+    .replace(createRegex('/', 'g'), '_')
+    .replace(createRegex('=+$'), '');
 }
 
 function enc(data) {
@@ -1933,10 +1977,196 @@ scenarios:
     fields.forEach((f) => { byName[f.field] = f.value; });
     assertThat(byName.utm_source).isEqualTo('google');
     assertThat(byName.utm_medium).isEqualTo('cpc');
-    assertThat(byName.landing_page_url).isEqualTo('https://example.com/landing');
+    // page_location is the current page, so it is never sent as the landing page
+    assertThat(byName.landing_page_url).isUndefined();
+- name: Falls back to aw_visitor_context when event data has no values
+  code: |-
+    const mockData = makeBaseData();
+    mockData.requestAdUserDataConsent = 'read_from_event_data';
+    mockData.requestAdPersonalizationConsent = 'read_from_event_data';
+    mockEventData = {
+      event_name: 'generate_lead',
+      aw_visitor_context: makeVisitorContext()
+    };
+
+    let body;
+    mock('sendHttpRequest', (url, options, b) => {
+      body = JSON.parse(b);
+      return Promise.create((resolve) => { resolve({ statusCode: 200 }); });
+    });
+
+    runCode(mockData);
+
+    const event = body.events[0];
+    assertThat(event.adIdentifiers.gclid).isEqualTo('vc_gclid');
+    // Visitor context session attributes object -> URL-safe base64 JSON, string values, nulls dropped
+    const encoded = event.adIdentifiers.sessionAttributes;
+    assertThat(encoded.indexOf('=')).isEqualTo(-1);
+    assertThat(encoded.indexOf('+')).isEqualTo(-1);
+    assertThat(encoded.indexOf('/')).isEqualTo(-1);
+    const decoded = JSON.parse(decodeUrlSafeBase64(encoded));
+    assertThat(decoded.gad_source).isEqualTo('1');
+    assertThat(decoded.landing_page_user_agent).isEqualTo('VC-UA');
+    assertThat(decoded.session_start_time_usec).isEqualTo('1793785045366000');
+    assertThat(decoded.landing_page_referrer).isUndefined();
+    assertThat(event.adIdentifiers.landingPageDeviceInfo.userAgent).isEqualTo('VC-UA');
+    assertThat(event.adIdentifiers.landingPageDeviceInfo.ipAddress).isEqualTo('203.0.113.7');
+    assertThat(event.clientId).isEqualTo('1028418122.1793784000');
+    assertThat(body.consent.adUserData).isEqualTo('CONSENT_GRANTED');
+    assertThat(body.consent.adPersonalization).isEqualTo('CONSENT_DENIED');
+
+    const identifiers = event.userData.userIdentifiers;
+    assertThat(identifiers.filter((i) => i.emailAddress)[0].emailAddress).isEqualTo(VC_EMAIL);
+    assertThat(identifiers.filter((i) => i.phoneNumber)[0].phoneNumber).isEqualTo(VC_PHONE);
+
+    const byName = {};
+    event.experimentalFields.forEach((f) => { byName[f.field] = f.value; });
+    assertThat(byName.landing_page_url).isEqualTo('http://localhost/index.html?gclid=vc_gclid');
+    // Decoded session attributes object is expanded into experimental fields
+    assertThat(byName.gad_source).isEqualTo('1');
+    assertThat(byName.gad_campaignid).isEqualTo('21288051566');
+    assertThat(byName.session_start_time_usec).isEqualTo('1793785045366000');
+- name: Expands a decoded eventData session_attributes object
+  code: |-
+    const mockData = makeBaseData();
+    mockEventData = {
+      event_name: 'generate_lead',
+      gclid: 'event_gclid',
+      session_attributes: {
+        gad_source: '2',
+        gad_campaignid: '999',
+        session_start_time_usec: '1700000000000000',
+        landing_page_url: 'https://example.com/?gclid=event_gclid',
+        landing_page_user_agent: 'EVENT-UA'
+      },
+      aw_visitor_context: makeVisitorContext()
+    };
+
+    let body;
+    mock('sendHttpRequest', (url, options, b) => {
+      body = JSON.parse(b);
+      return Promise.create((resolve) => { resolve({ statusCode: 200 }); });
+    });
+
+    runCode(mockData);
+
+    const event = body.events[0];
+    // Event data object wins over the visitor context and is base64 encoded
+    const decoded = JSON.parse(decodeUrlSafeBase64(event.adIdentifiers.sessionAttributes));
+    assertThat(decoded.gad_source).isEqualTo('2');
+    assertThat(decoded.landing_page_user_agent).isEqualTo('EVENT-UA');
+    assertThat(event.adIdentifiers.landingPageDeviceInfo.userAgent).isEqualTo('EVENT-UA');
+    // IP comes from the visitor context landing_device
+    assertThat(event.adIdentifiers.landingPageDeviceInfo.ipAddress).isEqualTo('203.0.113.7');
+    const byName = {};
+    event.experimentalFields.forEach((f) => { byName[f.field] = f.value; });
+    assertThat(byName.gad_source).isEqualTo('2');
+    assertThat(byName.gad_campaignid).isEqualTo('999');
+    assertThat(byName.session_start_time_usec).isEqualTo('1700000000000000');
+    assertThat(byName.landing_page_url).isEqualTo('https://example.com/?gclid=event_gclid');
+- name: Sends an encoded session attributes string as-is
+  code: |-
+    const mockData = makeBaseData();
+    mockEventData = {
+      event_name: 'generate_lead',
+      session_attributes: 'ZW5jb2RlZA=='
+    };
+
+    let body;
+    mock('sendHttpRequest', (url, options, b) => {
+      body = JSON.parse(b);
+      return Promise.create((resolve) => { resolve({ statusCode: 200 }); });
+    });
+
+    runCode(mockData);
+
+    assertThat(body.events[0].adIdentifiers.sessionAttributes).isEqualTo('ZW5jb2RlZA==');
+- name: Event data takes precedence over aw_visitor_context
+  code: |-
+    const mockData = makeBaseData();
+    mockData.requestAdUserDataConsent = 'read_from_event_data';
+    mockData.requestAdPersonalizationConsent = 'read_from_event_data';
+    mockEventData = {
+      event_name: 'generate_lead',
+      gclid: 'event_gclid',
+      client_id: 'event.cid',
+      page_location: 'https://example.com/lead',
+      consent: { ad_user_data: 'denied', ad_personalization: 'granted' },
+      user_data: { email_address: 'john@example.com' },
+      aw_visitor_context: makeVisitorContext()
+    };
+
+    let body;
+    mock('sendHttpRequest', (url, options, b) => {
+      body = JSON.parse(b);
+      return Promise.create((resolve) => { resolve({ statusCode: 200 }); });
+    });
+
+    runCode(mockData);
+
+    const event = body.events[0];
+    assertThat(event.adIdentifiers.gclid).isEqualTo('event_gclid');
+    assertThat(event.clientId).isEqualTo('event.cid');
+    assertThat(body.consent.adUserData).isEqualTo('CONSENT_DENIED');
+    assertThat(body.consent.adPersonalization).isEqualTo('CONSENT_GRANTED');
+    const emailEntry = event.userData.userIdentifiers.filter((i) => i.emailAddress)[0];
+    assertThat(emailEntry.emailAddress).isNotEqualTo(VC_EMAIL);
+
+    // Landing page comes from the visitor context, never from page_location
+    const byName = {};
+    event.experimentalFields.forEach((f) => { byName[f.field] = f.value; });
+    assertThat(byName.landing_page_url).isEqualTo('http://localhost/index.html?gclid=vc_gclid');
+- name: Ignores a malformed aw_visitor_context
+  code: |-
+    const mockData = makeBaseData();
+    mockEventData = {
+      event_name: 'generate_lead',
+      aw_visitor_context: 'not-an-object'
+    };
+
+    let body;
+    mock('sendHttpRequest', (url, options, b) => {
+      body = JSON.parse(b);
+      return Promise.create((resolve) => { resolve({ statusCode: 200 }); });
+    });
+
+    runCode(mockData);
+
+    assertThat(body.events[0].adIdentifiers).isUndefined();
+    assertThat(body.events[0].userData).isUndefined();
+- name: Falls back to aw_visitor_context identity user_id for userId
+  code: |-
+    const mockData = makeBaseData();
+    mockEventData = {
+      event_name: 'purchase',
+      aw_visitor_context: { identity: { user_id: 'CRM-001' } }
+    };
+
+    let body;
+    mock('sendHttpRequest', (url, options, b) => {
+      body = JSON.parse(b);
+      return Promise.create((resolve) => { resolve({ statusCode: 200 }); });
+    });
+
+    runCode(mockData);
+    assertThat(body.events[0].userId).isEqualTo('CRM-001');
+
+    // event data user_id wins over the visitor context
+    mockEventData.user_id = 'EVENT-ID';
+    runCode(mockData);
+    assertThat(body.events[0].userId).isEqualTo('EVENT-ID');
 setup: |-
   const Promise = require('Promise');
   const JSON = require('JSON');
+  const fromBase64 = require('fromBase64');
+  const createRegex = require('createRegex');
+
+  // Reverses the tag's URL-safe base64 (restores +, / and = padding).
+  function decodeUrlSafeBase64(value) {
+    let b64 = value.replace(createRegex('-', 'g'), '+').replace(createRegex('_', 'g'), '/');
+    while (b64.length % 4 !== 0) b64 = b64 + '=';
+    return fromBase64(b64);
+  }
 
   // Mutable per-scenario event data; default to a minimal purchase event.
   let mockEventData = { event_name: 'purchase' };
@@ -1965,6 +2195,49 @@ setup: |-
       customerValueBucket: 'not_set',
       gtmOnSuccess: () => {},
       gtmOnFailure: () => {}
+    };
+  }
+
+  const VC_EMAIL = '8c87b489ce35cf2e2f39f80e282cb2e804932a56a213983eeeb428407d43b52d';
+  const VC_PHONE = '1a8048ab6e65fff8239d8d115c943ed7a9e3379e9462d158d5a66d91e9fb3dfa';
+
+  // Sample eventData.aw_visitor_context document.
+  function makeVisitorContext() {
+    return {
+      consent: { ad_personalization: 'denied', ad_user_data: 'granted' },
+      ad_click: {
+        google_ads: {
+          gclid: 'vc_gclid',
+          gbraid: null,
+          wbraid: null,
+          dclid: null,
+          landing_url: 'http://localhost/index.html?gclid=vc_gclid',
+          landing_device: { ip_address: '203.0.113.7', user_agent: 'VC-DEVICE-UA' },
+          session_attributes: {
+            landing_page_url: 'http://localhost/index.html?gclid=vc_gclid',
+            landing_page_referrer: null,
+            landing_page_user_agent: 'VC-UA',
+            session_start_time_usec: 1793785045366000,
+            gad_source: '1',
+            gad_campaignid: '21288051566'
+          }
+        },
+        meta: { fbclid: 'gksjdfn45r3q4r' }
+      },
+      utm: null,
+      landing: { url: 'http://localhost/index.html?gclid=vc_gclid', referrer: null },
+      identity: {
+        client_ids: ['1028418122.1793784000'],
+        user_data: {
+          sha256_email_address: VC_EMAIL,
+          sha256_phone_number: VC_PHONE,
+          address: {
+            sha256_first_name: '81f8f6dde88365f3928796ec7aa53f72820b06db8664f5fe76a7eb13e24546a2',
+            sha256_last_name: '799ef92a11af918e3fb741df42934f3b568ed2d93ac1df74f1b8d41a27932a6f'
+          }
+        },
+        email_sha256: VC_EMAIL
+      }
     };
   }
 
