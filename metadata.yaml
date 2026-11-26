@@ -1,5 +1,7 @@
 homepage: "https://www.addingwell.com"
 documentation: "https://docs.addingwell.com/en/data-manager-api/conversions"
 versions:
+  - sha: 9fea0006a9f9a849acdd9d01b321d5bf4d383435
+    changeNotes: Use aw_visitor_context (Firestore Visitor Context Reader) as a lowest-priority fallback for click IDs, session attributes, landing page device info, consent, client ID, user ID, user data and UTMs.
   - sha: 7d24749c790d3059b1482ed5ae0b8101c9c32335
     changeNotes: first commit
