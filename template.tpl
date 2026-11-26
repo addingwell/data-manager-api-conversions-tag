@@ -841,7 +841,6 @@ const Math = require('Math');
 const createRegex = require('createRegex');
 const Object = require('Object');
 const getType = require('getType');
-const toBase64 = require('toBase64');
 /* ============================================================
    Campaign Data
 ============================================================ */
@@ -864,10 +863,13 @@ const utm_campaign = eventData.utm_campaign || vcUtm.utm_campaign || vcUtm.campa
 const utm_medium = eventData.utm_medium || vcUtm.utm_medium || vcUtm.medium;
 const utm_source = eventData.utm_source || vcUtm.utm_source || vcUtm.source;
 
-// Session attributes can arrive as the base64 encoded string (sent as-is in
-// adIdentifiers.sessionAttributes) or as a decoded object. A decoded object is
-// expanded into experimentalFields + landingPageDeviceInfo (userAgent, ipAddress), as the
-// Data Manager API documents for "Add session attributes".
+// Session attributes, as the Data Manager API documents for "Add session attributes":
+// - an encoded session attributes string in event data (captured on the site) is sent
+//   as-is in adIdentifiers.sessionAttributes (recommended method), and the individual
+//   fields are then not sent;
+// - otherwise the individual fields (from a decoded event data object or from
+//   aw_visitor_context) go to experimentalFields + landingPageDeviceInfo (alternative
+//   method). A decoded object is never encoded by the tag.
 const eventSessionAttributes = asObject(eventData.session_attributes);
 const getSessionAttribute = (key) => eventSessionAttributes[key] || vcSessionAttributes[key];
 
@@ -881,10 +883,8 @@ const dclid = eventData.dclid || vcGoogleAds.dclid;
 const mobile_device_id = eventData['x-ga-resettable_device_id'];
 const impression_id = eventData.impression_id;
 const match_id = eventData.match_id;
-// adIdentifiers.sessionAttributes only accepts a base64 encoded string: a
-// decoded object (e.g. from aw_visitor_context) is JSON-serialized and encoded.
-const session_attributes = encodeSessionAttributes(eventData.session_attributes) ||
-  encodeSessionAttributes(vcGoogleAds.session_attributes);
+const session_attributes = getType(eventData.session_attributes) === 'string' && eventData.session_attributes ?
+  eventData.session_attributes : undefined;
 
 /* ============================================================
    Destination References
@@ -978,8 +978,10 @@ event.eventTimestamp = eventData.timestamp_micros || formatTimestampToISO(getTim
 event.eventSource = data.eventSource;
 event.eventName = eventData.event_name;
 
+// The visitor document lists client IDs oldest first: the most recent one is the last.
 event.clientId = eventData.client_id ||
-  (getType(vcIdentity.client_ids) === 'array' ? vcIdentity.client_ids[0] : undefined);
+  (getType(vcIdentity.client_ids) === 'array' && vcIdentity.client_ids.length ?
+    vcIdentity.client_ids[vcIdentity.client_ids.length - 1] : undefined);
 event.userId = data.userId || eventData.user_id || (eventData.user_data ? eventData.user_data.user_id : undefined) ||
   vcIdentity.user_id;
 event.appInstanceId = eventData.app_instance_id;
@@ -1072,11 +1074,12 @@ const experimentalMappings = [
   { name: 'utm_medium', value: data.utm_medium || utm_medium },
   { name: 'utm_campaign', value: data.utm_campaign || utm_campaign },
   { name: 'campaign_id', value: data.campaign_id || campaign_id },
-  { name: 'gad_source', value: gad_source },
-  { name: 'gad_campaignid', value: gad_campaignid },
-  { name: 'session_start_time_usec', value: session_start_time_usec },
-  { name: 'landing_page_url', value: landing_page_url },
-  { name: 'landing_page_referrer', value: landing_page_referrer }
+  // Individual session attribute fields: only when no encoded string is sent (one method or the other)
+  { name: 'gad_source', value: session_attributes ? undefined : gad_source },
+  { name: 'gad_campaignid', value: session_attributes ? undefined : gad_campaignid },
+  { name: 'session_start_time_usec', value: session_attributes ? undefined : session_start_time_usec },
+  { name: 'landing_page_url', value: session_attributes ? undefined : landing_page_url },
+  { name: 'landing_page_referrer', value: session_attributes ? undefined : landing_page_referrer }
 ];
 
 // 3. Loop through and push only if a value exists
@@ -1440,41 +1443,6 @@ function getItemField(defaultField) {
 
 function asObject(value) {
   return getType(value) === 'object' ? value : {};
-}
-
-// Mirrors Google's front-end helper script: JSON object with string values,
-// base64 encoded, made URL-safe (+ -> -, / -> _, no trailing = padding).
-function encodeSessionAttributes(value) {
-  if (typeof value === 'string') return value || undefined;
-  if (getType(value) !== 'object') return undefined;
-
-  // Drop empty values; stringify the rest (session_start_time_usec included).
-  const cleaned = {};
-  Object.keys(value).forEach((key) => {
-    const v = value[key];
-    if (v !== null && v !== undefined && v !== '') cleaned[key] = makeString(v);
-  });
-
-  if (Object.keys(cleaned).length === 0) return undefined;
-
-  let encoded = toUrlSafeBase64(JSON.stringify(cleaned));
-
-  // Google recommends staying under 5 KB; if exceeded, drop the landing page
-  // URL and referrer as its documentation suggests.
-  if (encoded.length > 5120 && (cleaned.landing_page_url || cleaned.landing_page_referrer)) {
-    cleaned.landing_page_url = undefined;
-    cleaned.landing_page_referrer = undefined;
-    encoded = toUrlSafeBase64(JSON.stringify(cleaned));
-  }
-
-  return encoded;
-}
-
-function toUrlSafeBase64(input) {
-  return toBase64(input)
-    .replace(createRegex('\\+', 'g'), '-')
-    .replace(createRegex('/', 'g'), '_')
-    .replace(createRegex('=+$'), '');
 }
 
 function enc(data) {
@@ -1988,6 +1956,8 @@ scenarios:
       event_name: 'generate_lead',
       aw_visitor_context: makeVisitorContext()
     };
+    // client IDs are stored oldest first: the most recent (last) one is sent
+    mockEventData.aw_visitor_context.identity.client_ids = ['111.222', '1028418122.1793784000'];
 
     let body;
     mock('sendHttpRequest', (url, options, b) => {
@@ -1999,16 +1969,8 @@ scenarios:
 
     const event = body.events[0];
     assertThat(event.adIdentifiers.gclid).isEqualTo('vc_gclid');
-    // Visitor context session attributes object -> URL-safe base64 JSON, string values, nulls dropped
-    const encoded = event.adIdentifiers.sessionAttributes;
-    assertThat(encoded.indexOf('=')).isEqualTo(-1);
-    assertThat(encoded.indexOf('+')).isEqualTo(-1);
-    assertThat(encoded.indexOf('/')).isEqualTo(-1);
-    const decoded = JSON.parse(decodeUrlSafeBase64(encoded));
-    assertThat(decoded.gad_source).isEqualTo('1');
-    assertThat(decoded.landing_page_user_agent).isEqualTo('VC-UA');
-    assertThat(decoded.session_start_time_usec).isEqualTo('1793785045366000');
-    assertThat(decoded.landing_page_referrer).isUndefined();
+    // Visitor context session attributes are sent as individual fields, never encoded by the tag
+    assertThat(event.adIdentifiers.sessionAttributes).isUndefined();
     assertThat(event.adIdentifiers.landingPageDeviceInfo.userAgent).isEqualTo('VC-UA');
     assertThat(event.adIdentifiers.landingPageDeviceInfo.ipAddress).isEqualTo('203.0.113.7');
     assertThat(event.clientId).isEqualTo('1028418122.1793784000');
@@ -2051,10 +2013,8 @@ scenarios:
     runCode(mockData);
 
     const event = body.events[0];
-    // Event data object wins over the visitor context and is base64 encoded
-    const decoded = JSON.parse(decodeUrlSafeBase64(event.adIdentifiers.sessionAttributes));
-    assertThat(decoded.gad_source).isEqualTo('2');
-    assertThat(decoded.landing_page_user_agent).isEqualTo('EVENT-UA');
+    // Event data object wins over the visitor context; it is sent as individual fields, not encoded
+    assertThat(event.adIdentifiers.sessionAttributes).isUndefined();
     assertThat(event.adIdentifiers.landingPageDeviceInfo.userAgent).isEqualTo('EVENT-UA');
     // IP comes from the visitor context landing_device
     assertThat(event.adIdentifiers.landingPageDeviceInfo.ipAddress).isEqualTo('203.0.113.7');
@@ -2069,7 +2029,8 @@ scenarios:
     const mockData = makeBaseData();
     mockEventData = {
       event_name: 'generate_lead',
-      session_attributes: 'ZW5jb2RlZA=='
+      session_attributes: 'ZW5jb2RlZA==',
+      aw_visitor_context: makeVisitorContext()
     };
 
     let body;
@@ -2081,6 +2042,13 @@ scenarios:
     runCode(mockData);
 
     assertThat(body.events[0].adIdentifiers.sessionAttributes).isEqualTo('ZW5jb2RlZA==');
+    // One method or the other: no individual session attribute fields next to the string
+    const byName = {};
+    (body.events[0].experimentalFields || []).forEach((f) => { byName[f.field] = f.value; });
+    assertThat(byName.gad_source).isUndefined();
+    assertThat(byName.gad_campaignid).isUndefined();
+    assertThat(byName.session_start_time_usec).isUndefined();
+    assertThat(byName.landing_page_url).isUndefined();
 - name: Event data takes precedence over aw_visitor_context
   code: |-
     const mockData = makeBaseData();
@@ -2158,15 +2126,7 @@ scenarios:
 setup: |-
   const Promise = require('Promise');
   const JSON = require('JSON');
-  const fromBase64 = require('fromBase64');
   const createRegex = require('createRegex');
-
-  // Reverses the tag's URL-safe base64 (restores +, / and = padding).
-  function decodeUrlSafeBase64(value) {
-    let b64 = value.replace(createRegex('-', 'g'), '+').replace(createRegex('_', 'g'), '/');
-    while (b64.length % 4 !== 0) b64 = b64 + '=';
-    return fromBase64(b64);
-  }
 
   // Mutable per-scenario event data; default to a minimal purchase event.
   let mockEventData = { event_name: 'purchase' };

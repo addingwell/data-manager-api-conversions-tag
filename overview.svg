@@ -1,63 +1,110 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 340" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 470" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" xmlns:c2pa="http://c2pa.org/manifest">
   <defs>
     <style>
       .card { fill: #f5f5fb; stroke: #d9d9f2; stroke-width: 1.5; }
+      .cardInner { fill: #ffffff; stroke: #1e21c8; stroke-width: 1.5; }
       .cardMain { fill: #1e21c8; }
       .title { fill: #0f1014; font-size: 16px; font-weight: 700; }
+      .titleSmall { fill: #0f1014; font-size: 14px; font-weight: 700; }
       .titleLight { fill: #ffffff; font-size: 16px; font-weight: 700; }
       .desc { fill: #4a4a55; font-size: 12px; }
       .descLight { fill: #d9d9f2; font-size: 12px; }
+      .code { fill: #1e21c8; font-size: 12px; font-family: SFMono-Regular, Menlo, Consolas, monospace; }
       .label { fill: #1e21c8; font-size: 11.5px; font-weight: 700; letter-spacing: 0.5px; }
       .arrow { fill: none; stroke: #1e21c8; stroke-width: 2.5; }
+      .arrowSoft { fill: none; stroke: #1e21c8; stroke-width: 2; stroke-dasharray: 6 5; }
       .arrowHead { fill: #1e21c8; }
+      .db { fill: #f5f5fb; stroke: #1e21c8; stroke-width: 1.5; }
     </style>
     <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" class="arrowHead"/>
     </marker>
   </defs>
 
-  <rect x="0" y="0" width="1180" height="340" rx="16" fill="#ffffff"/>
+  <rect x="0" y="0" width="1180" height="470" rx="16" fill="#ffffff"/>
 
-  <!-- Source systems -->
-  <text x="145" y="66" text-anchor="middle" class="label">YOUR SYSTEMS</text>
+  <!-- Sources -->
+  <text x="145" y="52" text-anchor="middle" class="label">YOUR SYSTEMS</text>
   <g>
-    <rect x="40" y="80" width="210" height="180" rx="12" class="card"/>
-    <text x="145" y="130" text-anchor="middle" class="title">CRM · POS · Server</text>
-    <text x="145" y="160" text-anchor="middle" class="desc">Online &amp; offline</text>
-    <text x="145" y="178" text-anchor="middle" class="desc">conversion events</text>
-    <text x="145" y="210" text-anchor="middle" class="desc">Measurement Protocol</text>
-    <text x="145" y="228" text-anchor="middle" class="desc">(GA4) format</text>
+    <rect x="40" y="66" width="210" height="124" rx="12" class="card"/>
+    <text x="145" y="104" text-anchor="middle" class="title">Website</text>
+    <text x="145" y="130" text-anchor="middle" class="desc">GA4 hits: ad click landings,</text>
+    <text x="145" y="148" text-anchor="middle" class="desc">leads, logins, purchases</text>
+    <text x="145" y="172" text-anchor="middle" class="desc">(gclid, gbraid, fbclid, email…)</text>
+  </g>
+  <g>
+    <rect x="40" y="272" width="210" height="150" rx="12" class="card"/>
+    <text x="145" y="312" text-anchor="middle" class="title">CRM · POS · Server</text>
+    <text x="145" y="340" text-anchor="middle" class="desc">Online &amp; offline</text>
+    <text x="145" y="358" text-anchor="middle" class="desc">conversion events</text>
+    <text x="145" y="386" text-anchor="middle" class="desc">Measurement Protocol</text>
+    <text x="145" y="404" text-anchor="middle" class="desc">(GA4) format</text>
   </g>
 
-  <line x1="250" y1="170" x2="352" y2="170" class="arrow" marker-end="url(#ah)"/>
-  <text x="301" y="156" text-anchor="middle" class="desc">HTTP POST</text>
+  <!-- GTM Server -->
+  <text x="510" y="52" text-anchor="middle" class="label">GTM SERVER</text>
+  <rect x="362" y="66" width="296" height="370" rx="12" class="card"/>
 
-  <!-- GTM Server + tag -->
-  <text x="510" y="66" text-anchor="middle" class="label">GTM SERVER</text>
   <g>
-    <rect x="362" y="80" width="296" height="180" rx="12" class="card"/>
-    <rect x="386" y="106" width="248" height="70" rx="10" class="cardMain"/>
-    <text x="510" y="136" text-anchor="middle" class="titleLight">Data Manager API</text>
-    <text x="510" y="158" text-anchor="middle" class="titleLight">Conversions tag</text>
-    <text x="510" y="204" text-anchor="middle" class="desc">SHA-256 hashing · consent</text>
-    <text x="510" y="222" text-anchor="middle" class="desc">normalization · field mapping</text>
-    <text x="510" y="240" text-anchor="middle" class="desc">deduplication via transaction_id</text>
+    <rect x="386" y="88" width="248" height="70" rx="10" class="cardInner"/>
+    <text x="510" y="116" text-anchor="middle" class="titleSmall">Firestore Visitor Context</text>
+    <text x="510" y="134" text-anchor="middle" class="titleSmall">Writer tag</text>
+    <text x="510" y="151" text-anchor="middle" class="desc">stores the visitor's clicks &amp; identity</text>
   </g>
 
-  <path d="M 658 140 C 740 140, 760 96, 838 96" class="arrow" marker-end="url(#ah)"/>
-  <path d="M 658 200 C 740 200, 760 244, 838 244" class="arrow" marker-end="url(#ah)"/>
-  <text x="748" y="176" text-anchor="middle" class="desc">1 API call</text>
+  <g>
+    <rect x="386" y="214" width="248" height="70" rx="10" class="cardInner"/>
+    <text x="510" y="242" text-anchor="middle" class="titleSmall">Firestore Visitor Context</text>
+    <text x="510" y="260" text-anchor="middle" class="titleSmall">Reader variable</text>
+    <text x="510" y="277" text-anchor="middle" class="desc">Augment event transformation</text>
+  </g>
+
+  <line x1="510" y1="284" x2="510" y2="330" class="arrow" marker-end="url(#ah)"/>
+  <text x="522" y="312" class="code">aw_visitor_context</text>
+
+  <g>
+    <rect x="386" y="334" width="248" height="82" rx="10" class="cardMain"/>
+    <text x="510" y="362" text-anchor="middle" class="titleLight">Data Manager API</text>
+    <text x="510" y="382" text-anchor="middle" class="titleLight">Conversions tag</text>
+    <text x="510" y="403" text-anchor="middle" class="descLight">hashing · consent · field mapping</text>
+  </g>
+
+  <!-- Website -> Writer -->
+  <line x1="250" y1="124" x2="380" y2="123" class="arrow" marker-end="url(#ah)"/>
+  <text x="315" y="112" text-anchor="middle" class="desc">GA4 hits</text>
+
+  <!-- CRM -> Data Manager tag -->
+  <path d="M 250 360 C 310 360, 320 375, 380 375" class="arrow" marker-end="url(#ah)"/>
+  <text x="315" y="346" text-anchor="middle" class="desc">HTTP POST</text>
+
+  <!-- Firestore -->
+  <text x="790" y="132" text-anchor="middle" class="label">FIRESTORE</text>
+  <g>
+    <path d="M 730 156 L 730 226 A 60 14 0 0 0 850 226 L 850 156" class="db"/>
+    <ellipse cx="790" cy="156" rx="60" ry="14" class="db"/>
+    <text x="790" y="195" text-anchor="middle" class="code">aw_visitor_context</text>
+    <text x="790" y="213" text-anchor="middle" class="desc">one doc per visitor</text>
+  </g>
+
+  <!-- Writer -> Firestore, Firestore -> Reader -->
+  <path d="M 634 123 C 690 123, 700 150, 724 168" class="arrow" marker-end="url(#ah)"/>
+  <text x="690" y="112" text-anchor="middle" class="desc">write</text>
+  <path d="M 724 222 C 700 240, 690 249, 640 249" class="arrowSoft" marker-end="url(#ah)"/>
+  <text x="700" y="268" text-anchor="middle" class="desc">read, once per event</text>
 
   <!-- Destinations -->
-  <text x="995" y="66" text-anchor="middle" class="label">DESTINATIONS</text>
+  <text x="1010" y="292" text-anchor="middle" class="label">DESTINATIONS</text>
+  <path d="M 634 360 C 760 360, 780 334, 874 334" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 634 392 C 760 392, 780 412, 874 412" class="arrow" marker-end="url(#ah)"/>
+  <text x="760" y="380" text-anchor="middle" class="desc">1 API call</text>
   <g>
-    <rect x="850" y="72" width="290" height="88" rx="12" class="card"/>
-    <text x="995" y="108" text-anchor="middle" class="title">Google Ads</text>
-    <text x="995" y="134" text-anchor="middle" class="desc">Conversion action</text>
+    <rect x="880" y="302" width="260" height="62" rx="12" class="card"/>
+    <text x="1010" y="330" text-anchor="middle" class="title">Google Ads</text>
+    <text x="1010" y="350" text-anchor="middle" class="desc">Conversion action</text>
   </g>
   <g>
-    <rect x="850" y="180" width="290" height="88" rx="12" class="card"/>
-    <text x="995" y="216" text-anchor="middle" class="title">Google Analytics 4</text>
-    <text x="995" y="242" text-anchor="middle" class="desc">GA4 property</text>
+    <rect x="880" y="382" width="260" height="62" rx="12" class="card"/>
+    <text x="1010" y="410" text-anchor="middle" class="title">Google Analytics 4</text>
+    <text x="1010" y="430" text-anchor="middle" class="desc">GA4 property</text>
   </g>
-</svg>
+<metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTo2ODI2M2FmNC0wZmIyLTQ4NTMtYTJhMC1iMjg3M2M5YTE1MzkAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaL8FL+bxMuhpkY5yUTsnzlEAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDo2NWY3MTQ2NS1lODk2LTQ2NWEtODkzMC1iNmVjZjk2NjE1ZjlscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNo2CCAhuPxS/+98WOzu2bk6wAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggJYZ4HOTwmAujFfStPY9ckhdegvvx3C1S1Na8mWOILYWkZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaKaLuW/8mn1S6ZO/2FGyRfEAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRMAAAAAAAAAAAAAAAAZGhhc2hYINfhwS7fY8NIXJQaTYz7d1UZNP6moaMFTxQF1xprZn6AZG5hbWVuanVtYmYgbWFuaWZlc3RqZXhjbHVzaW9uc4GiZXN0YXJ0GRekZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOjY4MjYzYWY0LTBmYjItNDg1My1hMmEwLWIyODczYzlhMTUzOS9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOjg3YjA5YWJjLTYyMjEtNGZjMi04Mjk4LTJjMGM0YzI1ZmY3MHJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCAlhngc5PCYC6MV9K09j1ySF16C+/HcLVLU1ryZY4gthaJjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggDkMZNLt6Tszmy4fFA9OhGnnGmwsjgSQzLDwLApYhWiCiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggX5YWsphKEQnV930tGJ6RD+ADisUHwhma8em2IERTw3d0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQE94qn5YHdpeZwm3EDu9JkWigI1STQq/7LrQIbDb/2yD+xAs2vGJdUst7DcBmKfc4yMZToPB1+VCXeOTareE1XM=</c2pa:manifest></metadata></svg>
