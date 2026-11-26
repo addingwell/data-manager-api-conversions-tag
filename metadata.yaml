@@ -1,6 +1,8 @@
 homepage: "https://www.addingwell.com"
 documentation: "https://docs.addingwell.com/en/data-manager-api/conversions"
 versions:
+  - sha: acbca3a42bc75ed8c28b17a0701aa7b454d665be
+    changeNotes: Session attributes sent either as the encoded string (adIdentifiers.sessionAttributes) or as individual experimentalFields, never both; landingPageDeviceInfo (user agent, IP address) is sent in both cases. Client ID fallback uses the most recent client ID of aw_visitor_context.
   - sha: 9fea0006a9f9a849acdd9d01b321d5bf4d383435
     changeNotes: Use aw_visitor_context (Firestore Visitor Context Reader) as a lowest-priority fallback for click IDs, session attributes, landing page device info, consent, client ID, user ID, user data and UTMs.
   - sha: 7d24749c790d3059b1482ed5ae0b8101c9c32335
